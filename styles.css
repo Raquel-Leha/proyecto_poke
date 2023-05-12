@@ -1,0 +1,91 @@
+body {
+    background-color: orangered;
+    margin: 0;
+    font-family: rubik;
+    color: white;
+  }
+  .container {
+    padding: 40px;
+    margin: 0 auto;
+  }
+  h1 {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 54px;
+  }
+  .card {
+    list-style: none;
+    padding: 40px;
+    background-color: #f4f4f4;
+    color: #222;
+    text-align: center;
+  }
+  .card-title {
+    text-transform: uppercase;
+    font-size: 32px;
+    font-weight: normal;
+    margin-bottom: 0;
+  }
+  .card-subtitle {
+    font-weight: lighter;
+    color: #666;
+    margin-top: 5px;
+  }
+  .card-image {
+    height: 180px;
+  }
+  #pokedex, #pokedex2{
+    padding-inline-start: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-gap: 20px;
+  }
+  .card:hover {
+    animation: bounce 0.5s linear;
+  }
+
+  .pokeClass{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 10px;
+
+  }
+  .heartDiv{
+    width: 50px;
+    height: 50px;
+    background-image: url(./assets/core2.svg);
+    background-position: center;
+    background-size: cover;
+    background-color: orangered; 
+    
+  }
+
+  .core{
+    width: 90px;
+    height: 90px;
+    background-image: url(./assets/core.svg);
+    background-position: center;
+    background-size: cover;
+    background-color: orangered; 
+  }
+
+
+
+  @keyframes bounce {
+    20% {
+      transform: translateY(-6px);
+    }
+    40% {
+      transform: translateY(0px);
+    }
+    60% {
+      transform: translateY(-2px);
+    }
+    80% {
+      transform: translateY(-0px);
+    }
+  }
