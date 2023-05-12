@@ -13,7 +13,7 @@ let arrayFavorites = [];
 
 const getPokeCharacters = async () => {
 
-for(let i=1; i<=5; i++){
+for(let i=1; i<=10; i++){
 
   
   const response = await fetch("https://pokeapi.co/api/v2/pokemon/" + i);
@@ -71,12 +71,12 @@ const handlerClick1 = (ev) => {
       }
     };
 
-    if(!a && arrayFavorites.length >=3){
+    if(!a && arrayFavorites.length >=5){
       alert("No es posible tener más de cinco pokemons favoritos.");
      
     }
 
-    if(!a && arrayFavorites.length<=2){
+    if(!a && arrayFavorites.length<=4){
       console.log(arrayFavorites.length);
     arrayFavorites.push(character);
     console.log(arrayFavorites.length);
@@ -211,7 +211,7 @@ const init = async () => {
   drawInput(mappedPokeCharacters);
 
 };
-init();
+init();git 
 
 
 
