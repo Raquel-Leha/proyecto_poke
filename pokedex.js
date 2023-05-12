@@ -77,6 +77,21 @@ const handlerClick1 = (ev) => {
   };
 };
 
+const handlerClick2 = (ev) => {
+
+  let identity = ev.target.id;
+
+
+  for(const element of arrayFavorites){
+    if(element.id == identity){
+      arrayFavorites.splice(element,1);
+      renderFavorites(arrayFavorites);
+
+    };
+  };
+  
+}
+
 const renderFavorites = (array) => {
 
   pokeListFavorites$$.innerHTML = "";
@@ -90,7 +105,7 @@ const renderFavorites = (array) => {
     let div$$ = document.createElement("div");
     div$$.classList.add("core");
     div$$.setAttribute("id", character.id);
-  
+    div$$.addEventListener("click", handlerClick2);
     li$$.appendChild(div$$);
 
     let H2$$ = document.createElement("h2");
