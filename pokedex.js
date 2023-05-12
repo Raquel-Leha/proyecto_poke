@@ -41,6 +41,7 @@ const handlerClick1 = (ev) => {
  
   let a;
   let identity = ev.target.id;
+  console.log(identity);
 
   let heart = document.getElementsByClassName("heartDiv");
   console.log(heart);
@@ -83,33 +84,39 @@ const handlerClick1 = (ev) => {
     renderFavorites(arrayFavorites);
     }
  
-    
-
   };
 };
 
 const handlerClick2 = (ev) => {
 
   let identity = ev.target.id;
+  
 
   let heart = document.getElementsByClassName("core");
-  console.log(heart);
+
+  
   for(const element of heart){
     if(element.id == identity){
-      element.classList.remove("core");
+      console.log(element.id);
+      element.classList.remove("core")
       element.classList.add("heartDiv");
-
     };
   };
 
 
-  for(const element of arrayFavorites){
-    if(element.id == identity){
-      arrayFavorites.splice(element,1);
+  for(let i= 0 ; i<arrayFavorites.length; i++){
+   
+    if(identity == arrayFavorites[i].id){
+      
+      arrayFavorites.splice(i,1);
       renderFavorites(arrayFavorites);
-
+      
     };
   };
+
+  
+
+  
   
 }
 
@@ -211,7 +218,8 @@ const init = async () => {
   drawInput(mappedPokeCharacters);
 
 };
-init();git 
+
+init();
 
 
 
