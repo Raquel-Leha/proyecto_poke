@@ -8,12 +8,13 @@ const pokeListFavorites$$ = document.querySelector("#pokedex2");
 let arrayPoke = [];
 let mappedPokeCharacters = [];
 let arrayFavorites = [];
+let pokeFavs = [];
 
 
-
+//Peticion async await a la ApiPoke con la informacion sobre los 150 pokemons
 const getPokeCharacters = async () => {
 
-for(let i=1; i<=10; i++){
+for(let i=1; i<=150; i++){
 
   
   const response = await fetch("https://pokeapi.co/api/v2/pokemon/" + i);
@@ -27,6 +28,7 @@ return arrayPoke;
 
 };
 
+//Función que recibe un array y lo mapea para quedarme solo con la informacion que requiero para mi HTML
 const mapPokeCharacters = (array) => {
   //   console.log(charactersSinMapear);
   return array.map((element) => ({
@@ -37,6 +39,7 @@ const mapPokeCharacters = (array) => {
   }));
 };
 
+//Función manejadora del evento Click sobre la lista de los 150 pokemons
 const handlerClick1 = (ev) => {
  
   let a;
@@ -80,13 +83,18 @@ const handlerClick1 = (ev) => {
     if(!a && arrayFavorites.length<=4){
       console.log(arrayFavorites.length);
     arrayFavorites.push(character);
+    
     console.log(arrayFavorites.length);
     renderFavorites(arrayFavorites);
     }
  
   };
+
+  localStorage.setItem("misFavs", JSON.stringify(arrayFavorites));
+
 };
 
+//Función manejadora del event Click sobre la lista de los pokemons favoritos del usuario
 const handlerClick2 = (ev) => {
 
   let identity = ev.target.id;
@@ -114,12 +122,12 @@ const handlerClick2 = (ev) => {
     };
   };
 
-  
 
-  
-  
-}
 
+  localStorage.setItem("misFavs", JSON.stringify(arrayFavorites)); 
+};
+
+//Funcion que pinta en el HTML la lista de los pokemons favoritos de usuario
 const renderFavorites = (array) => {
 
   pokeListFavorites$$.innerHTML = "";
@@ -155,6 +163,7 @@ const renderFavorites = (array) => {
 
 };
 
+//Funcion que pinta en el HTML la lista de los 150 pokemons, con las caracteriscas que devolvio la funcion mapPokeCharacters
 const render = (array) => {
 
   pokeList$$.innerHTML = "";
@@ -167,8 +176,8 @@ const render = (array) => {
       pokeList$$.appendChild(li$$);
 
       let div$$ = document.createElement("div");
-      div$$.classList.add("heartDiv");
       div$$.setAttribute("id", character.id);
+      div$$.classList.add("heartDiv");
       div$$.addEventListener("click", handlerClick1);
       li$$.appendChild(div$$);
       
@@ -190,6 +199,7 @@ const render = (array) => {
   }
 };
 
+//Funcion manejadora del evento input que llama a la funcion searchPokemons para filtrar al pokemon filtrado
 const drawInput = (pokemons) => {
   const input$$ = document.querySelector("input");
   input$$.addEventListener("input", () =>
@@ -197,6 +207,7 @@ const drawInput = (pokemons) => {
   );
 };
 
+//Función que realiza la busqueda de los pokemons que contienen los caracteres del input
 const searchPokemons = (pokemons, character) => {
   let filteredPokemon = pokemons.filter((pokemon) =>
   pokemon.name.toLowerCase().includes(character.toLowerCase())
@@ -205,15 +216,22 @@ const searchPokemons = (pokemons, character) => {
 
 };
 
-const init = async () => {
 
+//Funcion que inicializa el programa
+const init = async () => {
 
   const pokeCharacters = await getPokeCharacters();
   
   mappedPokeCharacters = mapPokeCharacters(pokeCharacters);
-  console.log(mappedPokeCharacters);
+
+  pokeFavs = JSON.parse(localStorage.getItem("misFavs"));
 
   render(mappedPokeCharacters);
+
+  
+
+  renderFavorites(pokeFavs);
+  arrayFavorites = [...pokeFavs];
 
   drawInput(mappedPokeCharacters);
 
