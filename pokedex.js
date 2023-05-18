@@ -51,22 +51,24 @@ const handlerClick1 = (ev) => {
   let character = mappedPokeCharacters[identity - 1];
 
 
-/*Guardamos en el array heart los elementos con la clase heartDiv, y si el id de alguno de estos
+/*Funcion interna que guarda en el array heart los elementos con la clase heartDiv, y si el id de alguno de estos
   elementos guardados en el array coincide con el id del elemento clicado, le cambiamos la clase*/
+  function changeClass(){
   let heart = document.getElementsByClassName("heartDiv")
   for(const element of heart){
     if(element.id == identity){
       element.classList.remove("heartDiv");
       element.classList.add("core");
-   
     };
   };
+};
   
   
   
   //Si la lista de favoritos esta vacia, guardamos el elemento clikado en favoritos y renderizamos
   if(arrayFavorites.length === 0){
     arrayFavorites.push(character);
+    changeClass();
     renderFavorites(arrayFavorites);
   }else{
 
@@ -85,6 +87,7 @@ const handlerClick1 = (ev) => {
     //Si no existe coincidencia, y la lista de favoritos no esta llena
     if(!a && arrayFavorites.length<=4){
     arrayFavorites.push(character);
+    changeClass();
     renderFavorites(arrayFavorites);
     };
  
@@ -135,7 +138,7 @@ const renderFavorites = (array) => {
   for (const character of array) {
 
     let li$$ = document.createElement("li");
-    li$$.classList.add("pokeClass");
+    li$$.classList.add("card");
     pokeListFavorites$$.appendChild(li$$);
 
     let div$$ = document.createElement("div");
@@ -172,7 +175,7 @@ const render = (array) => {
   for (const character of array) {
 
       let li$$ = document.createElement("li");
-      li$$.classList.add("pokeClass");
+      li$$.classList.add("card");
       pokeList$$.appendChild(li$$);
 
       let div$$ = document.createElement("div");
@@ -194,15 +197,18 @@ const render = (array) => {
       
 
       let H2$$ = document.createElement("h2");
+      H2$$.classList.add("card-title");
       H2$$.textContent=character.name;
       li$$.appendChild(H2$$);
 
       let image$$ = document.createElement("img");
       image$$.setAttribute("src", character.image);
       image$$.setAttribute("alt", character.name);
+      image$$.classList.add("card-image");
       li$$.appendChild(image$$);
 
       let characterType$$ = document.createElement("p");
+      characterType$$.classList.add("card-subtitle");
       characterType$$.textContent= character.type;
       li$$.appendChild(characterType$$);
 
