@@ -4,11 +4,12 @@ const pokeList$$ = document.querySelector("#pokedex");
 const pokeListFavorites$$ = document.querySelector("#pokedex2");
 
 
-
 let arrayPoke = [];
 let mappedPokeCharacters = [];
 let arrayFavorites = [];
-let pokeFavs = [];
+let favs = [];
+
+
 
 
 //Peticion async await a la ApiPoke con la informacion sobre los 150 pokemons
@@ -48,11 +49,12 @@ const handlerClick1 = (ev) => {
 
   let heart = document.getElementsByClassName("heartDiv");
   console.log(heart);
+
   for(const element of heart){
     if(element.id == identity){
       element.classList.remove("heartDiv");
       element.classList.add("core");
-
+   
     };
   };
   
@@ -60,15 +62,15 @@ const handlerClick1 = (ev) => {
 
 
   if(arrayFavorites.length === 0){
-    console.log("he entrado en el primer if");
+    
     arrayFavorites.push(character);
     renderFavorites(arrayFavorites);
   }else{
     for(let element of arrayFavorites){
-      console.log("he entrado en el for");
+      
   
       if(element.id == character.id){
-        console.log("he entrado en el if");
+       
         a = true;
         alert(element.name + " ya se encuentra en su lista de favoritos. No es posible añadirlo dos veces.");
         
@@ -81,11 +83,10 @@ const handlerClick1 = (ev) => {
     }
 
     if(!a && arrayFavorites.length<=4){
-      console.log(arrayFavorites.length);
+
     arrayFavorites.push(character);
-    
-    console.log(arrayFavorites.length);
     renderFavorites(arrayFavorites);
+
     }
  
   };
@@ -178,6 +179,17 @@ const render = (array) => {
       let div$$ = document.createElement("div");
       div$$.setAttribute("id", character.id);
       div$$.classList.add("heartDiv");
+
+
+      for(const element of arrayFavorites){
+        if(character.id === element.id){
+          div$$.classList.remove("heartDiv");
+          div$$.classList.add("core");
+      };
+    };
+      
+      
+
       div$$.addEventListener("click", handlerClick1);
       li$$.appendChild(div$$);
       
@@ -196,7 +208,8 @@ const render = (array) => {
       li$$.appendChild(characterType$$);
 
 
-  }
+  };
+
 };
 
 //Funcion manejadora del evento input que llama a la funcion searchPokemons para filtrar al pokemon filtrado
@@ -220,45 +233,21 @@ const searchPokemons = (pokemons, character) => {
 //Funcion que inicializa el programa
 const init = async () => {
 
+
   const pokeCharacters = await getPokeCharacters();
   
   mappedPokeCharacters = mapPokeCharacters(pokeCharacters);
 
-  pokeFavs = JSON.parse(localStorage.getItem("misFavs"));
+  const favs = JSON.parse(localStorage.getItem("misFavs"));
+  if(favs){
+    arrayFavorites = favs;
+    renderFavorites(arrayFavorites);
+  }
 
   render(mappedPokeCharacters);
-
-  
-
-  renderFavorites(pokeFavs);
-  arrayFavorites = [...pokeFavs];
 
   drawInput(mappedPokeCharacters);
 
 };
 
 init();
-
-
-
-
-
-
-
-
-
-
- 
-
- 
- 
-
-
-
-
-
-
-
-
-
-
